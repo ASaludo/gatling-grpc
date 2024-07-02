@@ -5,6 +5,7 @@ import io.gatling.core.CoreComponents
 import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.core.action.{Action, ChainableAction}
 import io.gatling.core.session.Session
+import io.gatling.core.stats.{DataWritersStatsEngine, StatsEngine}
 import io.gatling.core.structure.ScenarioContext
 import io.gatling.core.util.NameGen
 import io.grpc.{ManagedChannel, ManagedChannelBuilder}
@@ -29,6 +30,8 @@ class SetDynamicChannel(
     GrpcProtocol.setEventLoopGroup(builder, coreComponents)
     next ! session.set(channelAttributeName, builder.build())
   }
+
+  override def statsEngine: StatsEngine = ???
 }
 
 class DisposeDynamicChannel(
@@ -48,4 +51,7 @@ class DisposeDynamicChannel(
 
     next ! newSession
   }
+
+
+  override def statsEngine: StatsEngine = ???
 }
